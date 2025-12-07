@@ -19,6 +19,15 @@
       </div>
       <div id="unity-warning"> </div>
     </div>
+      <script>
+        function notifyCompletion() {
+          console.log("Sending completion event to AppLearn...");
+          window.parent?.postMessage(
+          { type: 'YOUTUBER_SIM_COMPLETE' },
+              'http://127.0.0.1:5000'
+            );
+          }
+    </script>
     <script>
       window.addEventListener("load", function () {
         if ("serviceWorker" in navigator) {
@@ -93,6 +102,7 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+          window.notifyCompletion = notifyCompletion;
         }).catch((message) => {
           alert(message);
         });
